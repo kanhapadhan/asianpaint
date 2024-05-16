@@ -31,7 +31,7 @@ fetch("shadelisting.shade.json").then(success => {
       let hue = Number(hueSlider.value)
       let min = hue - 10
       let max = hue + 10
-      console.log(min,max)
+      //console.log(min,max)
       let foundObjs = shades.filterByHue(min,max)
       displayResults(foundObjs)
     })
