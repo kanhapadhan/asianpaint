@@ -2,7 +2,7 @@ let results = document.querySelector('.results');
 let searchInput = document.querySelector('#search');
 let hueSlider = document.querySelector('#hue');
 
-fetch('/shadelisting.shade.json').then(success => {
+fetch("shadelisting.shade.json").then(success => {
   success.json().then(data => {
     let shades = data.shade;
 
