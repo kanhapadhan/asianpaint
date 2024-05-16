@@ -1,5 +1,5 @@
 function hexToRgb(hex) {
-    // Remove '#' if present
+    // Remove '#' if present 
     hex = hex.replace(/^#/, '');
 
     // Convert 3-digit hex to 6-digit
