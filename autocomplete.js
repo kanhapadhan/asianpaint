@@ -71,6 +71,8 @@ export function autocomplete(inputElement, suggestionsArray, maxSuggestions = 10
   }
 
   document.addEventListener("click", function(e) {
+    let event = new Event('input');
+    inputElement.dispatchEvent(event);
     closeAllSuggestions(e.target);
   });
 }
