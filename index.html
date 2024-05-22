@@ -15,11 +15,13 @@
 </head>
 
 <body>
-  <form action="">
-    <label for="search">Search by color Name or code</label>
+  <form autocomplete="off" action="">
+  <div class="autocomplete" style="width:270px;">
     <input type="search" name="search" id="search" placeholder="search..." autofocus required>
-    <button type="submit">Search</button>
-  </form>
+  </div>
+  <input type="submit">
+</form>
+
   <input type="range" name="hue" id="hue" min="0" max="360" value="300" oninput="">
   <div class="results"></div>
   

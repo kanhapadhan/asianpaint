@@ -1,13 +1,20 @@
 import {hexToHsl} from '/color-converter.js';
+import {autocomplete} from '/autocomplete.js';
 
 let results = document.querySelector('.results');
 let searchInput = document.querySelector('#search');
 let hueSlider = document.querySelector('#hue');
 
+
 fetch("shadelisting.shade.json").then(success => {
   success.json().then(data => {
     let shades = data.shade;
-
+    let colorNames = shades.reduce((acc,color)=>{
+      acc.push(color.entityName)
+      return acc;
+    },[])
+    autocomplete(searchInput,colorNames)
+    
     let filteredObjects = shades.filter(obj => obj.pageNumber === '15');
     displayResults(filteredObjects)
     //displayResults(shades); // Display all shades initially
