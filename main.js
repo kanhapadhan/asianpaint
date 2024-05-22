@@ -1,5 +1,5 @@
-import {hexToHsl} from '/color-converter.js';
-import {autocomplete} from '/autocomplete.js';
+import {hexToHsl} from './color-converter.js';
+import {autocomplete} from './autocomplete.js';
 
 let results = document.querySelector('.results');
 let searchInput = document.querySelector('#search');
