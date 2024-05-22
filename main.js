@@ -1,83 +1,72 @@
-import {hexToHsl} from './color-converter.js';
-import {autocomplete} from './autocomplete.js';
+import { hexToHsl } from './color-converter.js';
+import { autocomplete } from './autocomplete.js';
 
 let results = document.querySelector('.results');
 let searchInput = document.querySelector('#search');
 let hueSlider = document.querySelector('#hue');
 
-
 fetch("shadelisting.shade.json").then(success => {
   success.json().then(data => {
     let shades = data.shade;
-    let colorNames = shades.reduce((acc,color)=>{
-      acc.push(color.entityName)
-      return acc;
-    },[])
-    autocomplete(searchInput,colorNames)
+    let colorNames = shades.map(color => color.entityName);
     
-    let filteredObjects = shades.filter(obj => obj.pageNumber === '15');
-    displayResults(filteredObjects)
-    //displayResults(shades); // Display all shades initially
+    autocomplete(searchInput, colorNames);
+    
+    // Display initial results (filtered by page number 15 as example)
+    let initialFilteredObjects = shades.filter(obj => obj.pageNumber === '15');
+    displayResults(initialFilteredObjects);
 
-    // Search functionality
-    searchInput.addEventListener('input', () => {
-      
-      let searchValue = searchInput.value;
-      if (searchValue.length === 0) {
-        return
-      }
-      let foundObjects = shades.filter(obj => obj.entityName.toLowerCase().includes(searchValue.toLowerCase()) || obj.entityCode.toLowerCase().includes(searchValue));
-      
-      if (foundObjects.length!=0) {
-        displayResults(foundObjects);
-      } else {
-        results.innerHTML = 'No Matches'
-      }
-      //console.log(foundObjects.length)
+    // Event listener for search input
+    searchInput.addEventListener('input', () => searchShades(shades));
+
+    // Event listener for hue slider
+    hueSlider.addEventListener('change', () => {
+      let hue = Number(hueSlider.value);
+      let minHue = hue - 10;
+      let maxHue = hue + 10;
+      let filteredByHue = filterByHue(shades, minHue, maxHue);
+      displayResults(filteredByHue);
     });
-    
-    hueSlider.addEventListener('change',()=>{
-      let hue = Number(hueSlider.value)
-      let min = hue - 10
-      let max = hue + 10
-      //console.log(min,max)
-      let foundObjs = shades.filterByHue(min,max)
-      displayResults(foundObjs)
-    })
   });
 });
 
+function searchShades(shades) {
+  let searchValue = searchInput.value;
+  if (searchValue.length === 0) {
+    return;
+  }
+  let foundObjects = shades.filter(obj => 
+    obj.entityName.toLowerCase().includes(searchValue.toLowerCase()) || 
+    obj.entityCode.toLowerCase().includes(searchValue)
+  );
+
+  if (foundObjects.length !== 0) {
+    displayResults(foundObjects);
+  } else {
+    results.innerHTML = 'No Matches';
+  }
+}
+
 function displayResults(objects) {
   results.innerHTML = '';
-  objects.forEach(val => {
-    addCard(val);
-  });
+  objects.forEach(val => addCard(val));
 }
 
 function addCard(colorObj) {
-  let card = document.createElement('div'); 
+  let card = document.createElement('div');
   card.className = 'card';
-  card.innerHTML = `<div class="colorBox" style="background:${colorObj.shadeHexCode}"></div>
-        <div class="title">
-            <span class="colorName">${colorObj.entityName}</span>
-            <span class="colorCode">${colorObj.entityCode}</span>
-        </div>`;
+  card.innerHTML = `
+    <div class="colorBox" style="background:${colorObj.shadeHexCode}"></div>
+    <div class="title">
+      <span class="colorName">${colorObj.entityName}</span>
+      <span class="colorCode">${colorObj.entityCode}</span>
+    </div>`;
   results.appendChild(card);
 }
 
-Array.prototype.filterByHue = function(minHue, maxHue) {
-  let foundObjects = this.filter(obj => {
-    let [h, , ] = hexToHsl(obj.shadeHexCode);
-    return (h > minHue && h < maxHue); 
-  });
-  return foundObjects;
-};
-
 function filterByHue(array, minHue, maxHue) {
-  let foundObjects = array.filter(obj => {
+  return array.filter(obj => {
     let [h, , ] = hexToHsl(obj.shadeHexCode);
-    return (h >= minHue && h <= maxHue); 
+    return (h >= minHue && h <= maxHue);
   });
-  return foundObjects;
-};
-
+}
