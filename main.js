@@ -1,3 +1,5 @@
+import {hexToHsl} from '/color-converter.js';
+
 let results = document.querySelector('.results');
 let searchInput = document.querySelector('#search');
 let hueSlider = document.querySelector('#hue');

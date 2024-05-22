@@ -67,3 +67,5 @@ function rgbToHsl(color) {
 function hexToHsl(color) {
   return rgbToHsl(hexToRgb(color));
 }
+
+export {hexToRgb, rgbToHsl, hexToHsl};
