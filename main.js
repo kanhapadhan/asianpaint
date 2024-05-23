@@ -8,10 +8,10 @@ let hueSlider = document.querySelector('#hue');
 fetch("shadelisting.shade.json").then(success => {
   success.json().then(data => {
     let shades = data.shade;
+    
     let colorNames = shades.map(color => color.entityName);
-    
     autocomplete(searchInput, colorNames);
-    
+
     // Display initial results (filtered by page number 15 as example)
     let initialFilteredObjects = shades.filter(obj => obj.pageNumber === '15');
     displayResults(initialFilteredObjects);
@@ -22,9 +22,12 @@ fetch("shadelisting.shade.json").then(success => {
     // Event listener for hue slider
     hueSlider.addEventListener('change', () => {
       let hue = Number(hueSlider.value);
-      let minHue = hue - 10;
-      let maxHue = hue + 10;
+      let threshold = 10;
+      let minHue = hue - threshold;
+      let maxHue = hue + threshold;
       let filteredByHue = filterByHue(shades, minHue, maxHue);
+      // Sort the filtered colors by lightness
+      sortShades(filteredByHue)
       displayResults(filteredByHue);
     });
   });
@@ -68,5 +71,23 @@ function filterByHue(array, minHue, maxHue) {
   return array.filter(obj => {
     let [h, , ] = hexToHsl(obj.shadeHexCode);
     return (h >= minHue && h <= maxHue);
+  });
+}
+
+function sortShades(shades) {
+  shades.sort((a, b) => {
+    let [hA, sA, lA] = hexToHsl(a.shadeHexCode);
+    let [hB, sB, lB] = hexToHsl(b.shadeHexCode);
+
+    // First sort by lightness, then by saturation if lightness is equal
+    /*
+    if (lA === lB) {
+      return sB - sA;
+    } else {
+      return lB - lA;
+    }
+    */
+    return lB - lA;
+    //return sB - sA;
   });
 }

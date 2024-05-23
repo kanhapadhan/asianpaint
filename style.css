@@ -19,12 +19,13 @@ body {
 
 .results {
   background: #fff;
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 10px 5px;
+  display: grid;
+  place-items: center;
+  grid-template-columns: repeat(5,1fr);
+  gap: 2px;
   margin: 0;
   padding: 10px 0;
+  max-width: 100vw;
 }
 
 
@@ -32,21 +33,22 @@ body {
 .card {
   background: #fff;
   outline: 0px solid #eee;
-  width: 100px;
-  padding: 10px;
+  width: 60px;
+  padding: 5px;
   border-radius: 10px;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
+  justify-content: center;
+  align-items: center;
   gap: 5px;
 }
 .card:hover {
   background: hsla(0, 0%, 0%, .03);
 }
 .card .colorBox {
-  height: 100px;
-  width: 100px;
-  border-radius: 7px;
+  height: 60px;
+  aspect-ratio: 1/1;
+  border-radius: 10px;
   background: #FFCACA;
   outline: 0px solid #000;
 }
@@ -55,10 +57,11 @@ body {
   display: flex;
   flex-direction: column;
   font-size: 12pt;
-  
+  font-size: 13px;
 }
 
 .colorName {
+  width: 70px;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
