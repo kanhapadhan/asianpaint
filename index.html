@@ -12,28 +12,30 @@
 </head>
 
 <body>
-  <div class="inputArea">
-    <form autocomplete="off" action="">
-      <div class="autocomplete" style="width:270px;">
-        <input type="search" name="search" id="search" placeholder="search..." autofocus required>
+  <div class="sidebar">
+    <form class="search-form" autocomplete="off" action="">
+      <div class="search-autocomplete">
+        <input type="search" name="search" id="search-input" placeholder="search..." autofocus required>
       </div>
-      <input type="submit">
+      <input type="submit" value="Search">
     </form>
 
-    <input type="range" name="hue" id="hue" min="0" max="360" value="300" oninput="">
+    <input type="range" name="hue" id="hue-slider" min="0" max="360" value="300">
   </div>
-  <div class="results"></div>
 
-  <!-- 
-  <div class="card">
-    <div class="colorBox"></div>
-    <div class="title">
-      <span class="colorName">red cg</span>
-      <span class="colorCode">2617</span>
+  <div class="content">
+    <div class="results">
+      <!--
+    <div class="card">
+      <div class="color-box"></div>
+      <div class="title">
+        <span class="color-name">red cg</span>
+        <span class="color-code">2617</span>
+      </div>
+    </div>
+    -->
     </div>
   </div>
--->
-  <!-- Project -->
   <script type="module" src="main.js"></script>
 </body>
 

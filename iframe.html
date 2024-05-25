@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Responsive Page Tester</title>
+  <style>
+  body {
+    
+  }
+    iframe {
+      width: 350px;
+      height: 500px;
+      /* Adjust height as needed */
+      border: 2px solid #000;
+      resize: both;
+      position: absolute;
+      left: 100px;
+      top: 100px;
+    }
+
+    input {
+      width: 90%;
+    }
+
+   
+     
+   .slider-container {
+  position: fixed;
+  left: 20px;
+  top: 0;
+  z-index: 5;
+}
+
+.vertical-slider {
+  -webkit-appearance: none;
+  width: 20px; /* Adjust width to control the slider's thickness */
+  height: 700px; /* Adjust height to control the slider's length */
+  border-radius: 5px;
+  background: #ccc;
+  outline: none;
+  writing-mode: bt-lr;
+  -webkit-appearance: slider-vertical;
+  transform: rotate(180deg); /* Rotate vertically */
+  
+}
+
+    
+  </style>
+</head>
+
+<body>
+  <iframe src="index.html"></iframe>
+  <br>
+  <input id="width" type="range" min="300" max="900" value="320">
+  
+<div class="slider-container">
+  <input type="range" class="vertical-slider" min="0" max="800" value="400">
+</div>
+  <script>
+    let iframe = document.querySelector('iframe')
+    let width = document.querySelector('#width')
+    let height = document.querySelector('.vertical-slider')
+    width.addEventListener('input', () => {
+      iframe.style.width = width.value + 'px'
+    })
+    height.addEventListener('input', () => {
+      iframe.style.height = height.value + 'px'
+    })
+  </script>
+</body>
+
+</html>

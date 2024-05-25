@@ -2,8 +2,8 @@ import { hexToHsl } from './color-converter.js';
 import { autocomplete } from './autocomplete.js';
 
 let results = document.querySelector('.results');
-let searchInput = document.querySelector('#search');
-let hueSlider = document.querySelector('#hue');
+let searchInput = document.querySelector('#search-input');
+let hueSlider = document.querySelector('#hue-slider');
 
 fetch("shadelisting.shade.json").then(success => {
   success.json().then(data => {
@@ -59,10 +59,10 @@ function addCard(colorObj) {
   let card = document.createElement('div');
   card.className = 'card';
   card.innerHTML = `
-    <div class="colorBox" style="background:${colorObj.shadeHexCode}"></div>
+    <div class="color-box" style="background:${colorObj.shadeHexCode}"></div>
     <div class="title">
-      <span class="colorName">${colorObj.entityName}</span>
-      <span class="colorCode">${colorObj.entityCode}</span>
+      <span class="color-name">${colorObj.entityName}</span>
+      <span class="color-code">${colorObj.entityCode}</span>
     </div>`;
   results.appendChild(card);
 }
